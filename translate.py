@@ -67,13 +67,20 @@ def process_video(video_filename):
     print("Transcription terminée")
     
     # Sauvegarder le texte transcrit dans un fichier .txt
-    transcript_filename = f"{base_filename}_transcript.txt"
+    transcript_filename = f"{base_filename}_transcript_en.txt"
     transcript_path = os.path.join(TRANSLATE_FOLDER, transcript_filename)
     with open(transcript_path, 'w', encoding='utf-8') as f:
         f.write(text_en) # type: ignore
 
     text_fr = translate_text(text_en)
     print("Traduction terminée")
+
+    # Sauvegarder le texte traduit dans un fichier .txt
+    transcript_filename_fr = f"{base_filename}_transcript_fr.txt"
+    transcript_path_fr = os.path.join(TRANSLATE_FOLDER, transcript_filename_fr)
+    with open(transcript_path_fr, 'w', encoding='utf-8') as f:
+        f.write(text_fr)
+    print("Texte traduit sauvegardé:", transcript_path_fr)
 
     text_to_speech(text_fr, tts_path)
     print("Synthèse vocale terminée:", tts_path)
